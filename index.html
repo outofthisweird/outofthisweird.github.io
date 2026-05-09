@@ -3,21 +3,30 @@ layout: default
 title: home
 ---
 
-<h1 class="site-title">{{ site.title | escape }}</h1>
+<section class="terminal-window home-terminal">
+  <div class="terminal-topline" aria-hidden="true">
+    <span>OUTOFTHISWEIRD NET</span>
+    <span>LOG LIST</span>
+  </div>
 
-{% if site.description %}
-  <p class="site-description">{{ site.description | escape }}</p>
-{% endif %}
+  <h1 class="site-title">{{ site.title | escape }}</h1>
 
-{% if site.posts.size > 0 %}
-  <ul class="post-list">
-    {% for post in site.posts %}
-      <li>
-        <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%Y-%m-%d" }}</time>
-        <a href="{{ post.url | relative_url }}">{{ post.title | escape }}</a>
-      </li>
-    {% endfor %}
-  </ul>
-{% else %}
-  <p>아직 글이 없습니다.</p>
-{% endif %}
+  {% if site.description %}
+    <p class="site-description">{{ site.description | escape }}</p>
+  {% endif %}
+
+  {% if site.posts.size > 0 %}
+    <ol class="post-list" aria-label="글 목록">
+      {% for post in site.posts %}
+        <li class="post-entry">
+          <a class="post-link" href="{{ post.url | relative_url }}">
+            <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%Y-%m-%d" }}</time>
+            <span>{{ post.title | escape }}</span>
+          </a>
+        </li>
+      {% endfor %}
+    </ol>
+  {% else %}
+    <p class="empty-message">아직 글이 없습니다.</p>
+  {% endif %}
+</section>

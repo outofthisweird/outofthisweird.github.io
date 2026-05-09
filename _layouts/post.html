@@ -2,10 +2,16 @@
 layout: default
 ---
 
-<p><a href="{{ '/' | relative_url }}">처음으로</a></p>
+<p class="terminal-back"><a href="{{ '/' | relative_url }}">처음으로</a></p>
 
-<article>
-  <header>
+<article class="terminal-window post-terminal">
+  <div class="terminal-topline" aria-hidden="true">
+    <span>PRIVATE LOG</span>
+    <span>{{ page.date | date: "%Y.%m.%d" }}</span>
+  </div>
+
+  <header class="post-header">
+    <p class="terminal-kicker">대화 기록을 불러오는 중...</p>
     <h1>{{ page.title | escape }}</h1>
     <p class="post-meta">
       <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%Y-%m-%d" }}</time>
@@ -17,5 +23,8 @@ layout: default
     </p>
   </header>
 
-  {{ content }}
+  {% assign post_author = page.author | default: site.author | default: "기록자" %}
+  <div class="post-body" style="--post-author: '{{ post_author | escape }}';" data-typewriter data-typewriter-min-speed="80" data-typewriter-max-speed="240">
+    {{ content }}
+  </div>
 </article>
